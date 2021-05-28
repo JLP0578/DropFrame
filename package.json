@@ -2,7 +2,7 @@
   "name": "dropframe",
   "version": "0.0.5",
   "main": "index.js",
-  "repository": "https://github.com/JLP0578/DropFarme",
+  "repository": "https://github.com/JLP0578/DropFrame.git",
   "author": "JLP0578",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
