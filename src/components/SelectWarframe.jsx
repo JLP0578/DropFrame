@@ -16,11 +16,11 @@ class SelectWarframe extends Component {
     onInputDataList(evt) {
         const val = document.getElementById("search");
         const opts = document.getElementById('WarframeName').childNodes;
-        const detail = document.getElementById('detail');
+        // const detail = document.getElementById('detail');
         for (let i = 0; i < opts.length; i++) {
             const valeurOption = opts[i].value;
             if (valeurOption === val.value) {
-                detail.innerText = valeurOption;
+                // detail.innerText = valeurOption;
                 this.getData(valeurOption)
                 val.blur();
                 break;

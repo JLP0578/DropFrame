@@ -6,12 +6,15 @@ const Items = require('warframe-items');
 
 const items = new Items({category: ['Warframes']});
 
+//TODO bug entre une warframe puis equinox
+
+// ========================================
+
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             nodes: [],
-            links: [],
             partlist: {},
         }
         this.handlePartList = this.handlePartList.bind(this);
@@ -45,12 +48,6 @@ class App extends Component {
                     {id: "base_compo_3", name: partsWarframe[3], className: "SubBase compo_3"}
                 ]
             ];
-            links = [
-                {from: "base_compo_0", to: "base_compo_1"},
-                {from: "base_compo_0", to: "base_compo_2"},
-                {from: "base_compo_0", to: "base_compo_3"},
-                {from: "base_compo_0", to: "base_compo_4"}
-            ];
         } else if (partsWarframe.length === 4) {
             nodes = [
                 [
@@ -61,33 +58,20 @@ class App extends Component {
                     {id: "base_compo_3", name: partsWarframe[3], className: "SubBase compo_3"}
                 ]
             ];
-            links = [
-                {from: "base_compo_0", to: "base_compo_1"},
-                {from: "base_compo_0", to: "base_compo_2"},
-                {from: "base_compo_0", to: "base_compo_3"},
-            ];
         }
         this.setState({
             nodes: nodes,
-            links: links
         });
     }
 
     render() {
-        const controlStates = () => {
-            return this.state.links && this.state.nodes && this.state.links.length !== 0 && this.state.nodes.length !== 0
-        }
-
         return (
             <React.Fragment>
                 <h1>DropFarme</h1>
                 <p>recherchez une warframe</p>
                 <SelectWarframe warframeJSON={items} partlist={this.handlePartList}/>
-                {controlStates &&
-                <TechTree
-                    links={this.state.links}
-                    nodes={this.state.nodes}
-                />
+                {this.state.nodes && this.state.nodes.length !== 0 &&
+                    <TechTree nodes={this.state.nodes} />
                 }
             </React.Fragment>
         );
