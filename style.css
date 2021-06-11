@@ -1,0 +1,119 @@
+
+.Node {
+    outline: solid;
+    outline-color: grey;
+    outline-width: 2px;
+    background-color: #fff;
+    z-index: 1
+}
+
+.Node:hover {
+    cursor: pointer
+}
+
+.Tree {
+    background-color: transparent;
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    height: 100vh
+}
+
+@-webkit-keyframes activate {
+    0% {
+        border: black 1px solid;
+        transition: 200ms;
+        /*outline-color: grey;*/
+        /*stroke: grey*/
+    }
+    to {
+        border: orangered 5px solid;
+        transition: 200ms;
+        /*outline-color: gold;*/
+        /*stroke: gold*/
+    }
+}
+
+@keyframes activate {
+    0% {
+        border: black 1px solid;
+        transition: 200ms;
+        /*outline-color: grey;*/
+        /*stroke: grey*/
+    }
+    to {
+        border: orangered 5px solid;
+        transition: 200ms;
+        /*outline-color: gold;*/
+        /*stroke: gold*/
+    }
+}
+
+.Tree .active {
+    -webkit-animation: activate 0.5s forwards;
+    animation: activate 0.5s forwards
+}
+
+.Tree-Row {
+    display: flex;
+    justify-content: space-evenly
+}
+
+.Link-Container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.Link {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 2px
+}
+.compo_0 {
+    background-color: gold;
+}
+.compo_1 {
+    background-color: yellow;
+}
+.compo_2 {
+    background-color: yellowgreen;
+}
+.compo_3 {
+    background-color: green;
+}
+.compo_4 {
+    background-color: skyblue;
+}
+.Base {
+    width: 100px;
+}
+.SubBase {
+    width: 80px;
+    font-weight: bold;
+}
+.Sub {
+    width: 80px;
+}
+.hidden{
+    visibility: hidden;
+}
+button{
+    z-index: 2;
+}
+.buttonWithImg {
+    display: block;
+    max-width:512px;
+    max-height:352px;
+    width: auto;
+    height: auto;
+}
+
+.leaflet-container {
+    height: 600px;
+    width:80%;
+}
+
