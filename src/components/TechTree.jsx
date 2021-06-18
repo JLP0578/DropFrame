@@ -113,9 +113,8 @@ const TechTree = ({nodes}) => {
         if (partImg.includes('-chassis.')) partImg = 'chassis.png';
         return (
             <button id={id} onClick={() => ClickButton(partOfWarframe)} className={`buttonWithImg ${className}`}>
-                <img width={"73"} height={"50"} src={'/src/data/' + partImg}/>
+                <img width={"73"} height={"50"} src={'./src/data/' + partImg}/>
                 {partName}
-                truc
             </button>
         );
     }

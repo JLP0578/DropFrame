@@ -29,7 +29,16 @@ module.exports = {
             test: /\.(css|scss)$/,
             use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader']
         },
-        { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=10000' }
+        {
+            test: /\.(png|jpg|gif)$/i,
+            use: [{
+                    loader: 'url-loader',
+                    options: {
+                        encoding: 'base64',
+                        limit: 8192,
+                    }
+                }],
+        }
         ]
     },
     plugins: [

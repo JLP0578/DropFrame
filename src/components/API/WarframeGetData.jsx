@@ -1,40 +1,69 @@
 import React from 'react';
 /***
- *
- * @param word {string}
- * @returns {string}
+ * formate le mot
+ * exclue tout les types sauf les chaînes de caractère
+ * @param { String } word
+ * @returns { String } retourne le mot dont la première lettre en majuscule et le reste en minuscule sinon vide
  */
-const capitalize = (word) => {
+export const capitalize = (word) => {
     if (typeof word !== 'string') return '';
-    return word.charAt(0).toUpperCase() + word.slice(1);
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 }
+
+/***
+ * compart le nom de la warframe avec le mot chercher,
+ * exclue "Excalibur Prime" qui n'est pas obtenable par drop
+ * @param { String } warframeName nom de la warframe dans le JSON
+ * @param { String } searchName fragement du nom que l'on cherche
+ * @return { String } retourne le nom de la warframe sinon vide
+ */
+export const warframeGetName = (warframeName, searchName) => {
+    let resultat = '';
+    const isTrulyName = (warframeName.indexOf(searchName) > -1);
+    const isNotExcaPrime = (warframeName !== "Excalibur Prime");
+    if (isTrulyName && isNotExcaPrime) {
+        resultat = warframeName;
+    }
+    return resultat;
+}
+
+/***
+ *
+ * @param { *[] } warframe objet de la warframe
+ * @param { String } searchName nom de la warframe que l'on cherche
+ * @returns { *[] } retourne le objet de la warframe sinon vide
+ */
+export const warframeGetData = (warframe, searchName) => {
+    let resultat = {};
+    const isSameName = (warframe.name === searchName);
+    if (isSameName) {
+        resultat = warframe;
+    }
+    return resultat;
+}
+
+
 /***
  * @returns {array}
  * @param warframe
  * @param searchName
  * @param tab
  */
-export const findByName = (warframe, searchName, tab) => {
+ export const findByName = (warframe, searchName, tab) => {
     const isTrulyName = (warframe.name.indexOf(searchName) > -1);
     if (isTrulyName) {
         return warframe.name;
     }
 }
-/***
- *
- * @param warframeJSON
- * @param searchName
- * @param type 'findByName' or 'getDataByName'
- * @returns {*[]}
- */
-export const warframeGetData = (warframeJSON, searchName, type) => {
+
+export const warframeGet = (warframeJSON, searchName, type) => {
     searchName = capitalize(searchName);
     let matches = []
     warframeJSON.map((warframe) => {
         const isWarframeCategory = (warframe.productCategory === 'Suits');
         if (isWarframeCategory) {
             switch (type) {
-                case 'findByName':
+                case 'findName':
                     const isTrulyName = (warframe.name.split(' ')[0].indexOf(searchName) > -1);
                     const isNotExcaPrime = (warframe.name !== "Excalibur Prime");
                     if (isTrulyName && isNotExcaPrime) {
@@ -52,7 +81,6 @@ export const warframeGetData = (warframeJSON, searchName, type) => {
     })
     return matches;
 }
-
 /***
  * @returns {array}
  * @param warframe

@@ -32,12 +32,12 @@ class SelectWarframe extends Component {
         const premierElementRetourne = 0;
         const allDataWarframeSelected = warframeGetData(this.state.warframeJSON, name, 'getDataByName')[premierElementRetourne];
         // document.getElementById('detail').innerHTML = '<pre>' + JSON.stringify(allDataWarframeSelected, null, 2) + '</pre>';
-
+    
         this.props.partlist(allDataWarframeSelected);
     }
 
     onChangeInput(evt) {
-        const warframesFind = warframeGetData(this.state.warframeJSON, evt.target.value, 'findByName');
+        const warframesFind = warframeGetData(this.state.warframeJSON, evt.target.value, 'findName');
         const listNomTrouver = [];
         for (const [index, value] of warframesFind.entries()) {
             listNomTrouver.push(
@@ -86,9 +86,8 @@ class SelectWarframe extends Component {
                 <datalist id={"WarframeName"}>
                     {dataList}
                 </datalist>
-                <div
-                    id={"detail"}
-                >
+                <div id={"detail"}>
+
                 </div>
             </>
         );

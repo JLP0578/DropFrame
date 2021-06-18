@@ -20,6 +20,10 @@ class App extends Component {
         this.handlePartList = this.handlePartList.bind(this);
     }
 
+    componentDidMount(){
+        // document.getElementById('detail').innerHTML = '<pre>' + JSON.stringify(items, null, 2) + '</pre>';
+    }
+
     handlePartList(objWarframeSelected) {
         let partsWarframe = objWarframeSelected.components.map((part) => part);
 
