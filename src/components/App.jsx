@@ -2,9 +2,13 @@ import React, {Component} from 'react';
 import SelectWarframe from "./SelectWarframe";
 import TechTree from "./TechTree";
 
+import { warframeGetData, warframeGetName } from './API/WarframeGetData';
+
 const Items = require('warframe-items');
 
-const items = new Items({category: ['Warframes']});
+// const items = new Items({category: ['Warframes']});
+const items = require('/src/data/AllWarframeData.json');
+
 
 //TODO bug entre une warframe puis equinox
 
@@ -21,7 +25,29 @@ class App extends Component {
     }
 
     componentDidMount(){
-        // document.getElementById('detail').innerHTML = '<pre>' + JSON.stringify(items, null, 2) + '</pre>';
+        //document.getElementById('detail').innerHTML = '<pre>' + JSON.stringify(items, null, 2) + '</pre>';
+        // GENERATOR FILES JSON
+        // let tabName = [];
+        // items.map((item) => {
+        //     tabName.push({
+        //         "uniqueName": item.uniqueName,
+        //         "name": item.name,
+        //         "description": item.description,
+        //         "imageName": item.imageName,
+
+        //         "productCategory": item.productCategory,
+        //         "type": item.type,
+        //         "category": item.category,
+
+        //         "buildPrice": item.buildPrice,
+
+        //         "wikiaUrl": item.wikiaUrl,
+        //         "wikiaThumbnail": item.wikiaThumbnail,
+
+        //         "components": item.components
+        //     });
+        // })
+        // document.getElementById('detail').innerHTML = '<pre>' + JSON.stringify(tabName, null, 2) + '</pre>';
     }
 
     handlePartList(objWarframeSelected) {

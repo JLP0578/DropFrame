@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {findByName, getDataByName, warframeGetData} from "./API/WarframeGetData";
+import {warframeGet} from "./API/WarframeGetData";
 
 // ========================================
 
@@ -30,14 +30,14 @@ class SelectWarframe extends Component {
 
     getData(name) {
         const premierElementRetourne = 0;
-        const allDataWarframeSelected = warframeGetData(this.state.warframeJSON, name, 'getDataByName')[premierElementRetourne];
+        const allDataWarframeSelected = warframeGet(this.state.warframeJSON, name, 'getData')[premierElementRetourne];
         // document.getElementById('detail').innerHTML = '<pre>' + JSON.stringify(allDataWarframeSelected, null, 2) + '</pre>';
     
         this.props.partlist(allDataWarframeSelected);
     }
 
     onChangeInput(evt) {
-        const warframesFind = warframeGetData(this.state.warframeJSON, evt.target.value, 'findName');
+        const warframesFind = warframeGet(this.state.warframeJSON, evt.target.value, 'findName');
         const listNomTrouver = [];
         for (const [index, value] of warframesFind.entries()) {
             listNomTrouver.push(

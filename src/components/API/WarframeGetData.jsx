@@ -7,7 +7,19 @@ import React from 'react';
  */
 export const capitalize = (word) => {
     if (typeof word !== 'string') return '';
-    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    const tabOfWord = word.split(' ');
+    let firstWord = tabOfWord[0];
+    let secondWord = tabOfWord[1];
+    let firstWordfisrtLetterToUpper = firstWord.charAt(0).toUpperCase();
+    let firstWordToLower = firstWord.slice(1).toLowerCase();
+    let secondWordfisrtLetterToUpper, secondWordToLower = '';
+    let result = firstWordfisrtLetterToUpper + firstWordToLower;
+    if(secondWord !== undefined) {
+        secondWordfisrtLetterToUpper = ' ' + secondWord.charAt(0).toUpperCase();
+        secondWordToLower = secondWord.slice(1).toLowerCase();
+        result = firstWordfisrtLetterToUpper + firstWordToLower + secondWordfisrtLetterToUpper + secondWordToLower
+    }    
+    return result;
 }
 
 /***
@@ -42,44 +54,51 @@ export const warframeGetData = (warframe, searchName) => {
     return resultat;
 }
 
-
 /***
  * @returns {array}
  * @param warframe
  * @param searchName
  * @param tab
  */
- export const findByName = (warframe, searchName, tab) => {
+export const findByName = (warframe, searchName, tab) => {
     const isTrulyName = (warframe.name.indexOf(searchName) > -1);
     if (isTrulyName) {
         return warframe.name;
     }
 }
 
+/***
+ * @param { *[] } warframeJSON
+ * @param { String } searchName
+ * @param { String } type
+ * @returns { *[] }
+ */
 export const warframeGet = (warframeJSON, searchName, type) => {
     searchName = capitalize(searchName);
     let matches = []
-    warframeJSON.map((warframe) => {
-        const isWarframeCategory = (warframe.productCategory === 'Suits');
-        if (isWarframeCategory) {
-            switch (type) {
-                case 'findName':
-                    const isTrulyName = (warframe.name.split(' ')[0].indexOf(searchName) > -1);
-                    const isNotExcaPrime = (warframe.name !== "Excalibur Prime");
-                    if (isTrulyName && isNotExcaPrime) {
-                        matches.push(warframe.name);
-                    }
-                    break;
-                case 'getDataByName':
-                    const isSameName = (warframe.name === searchName);
-                    if (isSameName) {
-                        matches.push(warframe);
-                    }
-                    break;
+    const isNotEmptySearchName = searchName !== "";
+    if(isNotEmptySearchName){
+        warframeJSON.map((warframe) => {
+            const isWarframeCategory = (warframe.productCategory === 'Suits');
+            if (isWarframeCategory) {
+                switch (type) {
+                    case 'findName':
+                        let name = warframeGetName(warframe.name, searchName);
+                        if(name != ''){
+                            matches.push(name);
+                        }
+                        break;
+                    case 'getData':
+                        let data = warframeGetData(warframe, searchName)
+                        if(Object.keys(data).length != 0){
+                            matches.push(data);
+                        }
+                        break;
+                }
             }
-        }
-    })
-    return matches;
+        })
+    }
+    return  matches;
 }
 /***
  * @returns {array}
