@@ -10,7 +10,8 @@ const Items = require('warframe-items');
 const items = require('/src/data/AllWarframeData.json');
 
 
-//TODO bug entre une warframe puis equinox
+//TODO bug entre une warframe puis equinox, link du tree ne change pas
+//TODO bug entre loki prime et loki, supp prime et confirm loki les img ne change pas
 
 // ========================================
 

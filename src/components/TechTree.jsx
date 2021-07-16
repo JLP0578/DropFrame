@@ -106,11 +106,21 @@ const TechTree = ({nodes}) => {
         function ClickButton(partOfWarframe) {
             alert(partOfWarframe.name);
         }
-
         if (partName === undefined || id === undefined) className = 'hidden';
-        if (partImg.includes('-neuroptics.')) partImg = 'neuroptics.png';
-        if (partImg.includes('-systems.')) partImg = 'systems.png';
-        if (partImg.includes('-chassis.')) partImg = 'chassis.png';
+
+        console.log(partImg);
+        // if (partImg.includes('prime-neuroptics.')) {
+        //     partImg = 'prime-neuroptics.png';
+        // } else partImg = 'neuroptics.png';
+        
+        // if (partImg.includes('prime-systems.')) {
+        //     partImg = 'prime-systems.png';
+        // } else partImg = 'systems.png';
+
+        // if (partImg.includes('prime-chassis.')) {
+        //     partImg = 'prime-chassis.png';
+        // } else partImg = 'chassis.png';
+
         return (
             <button id={id} onClick={() => ClickButton(partOfWarframe)} className={`buttonWithImg ${className}`}>
                 <img width={"73"} height={"50"} src={'./src/data/' + partImg}/>

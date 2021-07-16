@@ -1,4 +1,5 @@
 import React from 'react';
+
 /***
  * formate le mot
  * exclue tout les types sauf les chaînes de caractère
@@ -33,7 +34,8 @@ export const warframeGetName = (warframeName, searchName) => {
     let resultat = '';
     const isTrulyName = (warframeName.indexOf(searchName) > -1);
     const isNotExcaPrime = (warframeName !== "Excalibur Prime");
-    if (isTrulyName && isNotExcaPrime) {
+    const isNotExcaUmbra = (warframeName !== "Excalibur Umbra");
+    if (isTrulyName && isNotExcaPrime && isNotExcaUmbra) {
         resultat = warframeName;
     }
     return resultat;
@@ -100,6 +102,7 @@ export const warframeGet = (warframeJSON, searchName, type) => {
     }
     return  matches;
 }
+
 /***
  * @returns {array}
  * @param warframe

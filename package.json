@@ -46,7 +46,7 @@
     "react-dom": "^16.7.0",
     "react-tech-tree": "^0.8.5",
     "styled-components": "^5.3.0",
-    "warframe-items": "^1.1246.118"
+    "warframe-items": "1.1246.118"
   },
   "jest": {
     "setupFilesAfterEnv": [

@@ -102,7 +102,7 @@ describe('WarframeGetData', () => {
         expect(warframeGetName(Mock_warframeJSON[1].name, Mock_value[indexTabMockValue])).toEqual("Ember");
         expect(warframeGetName(Mock_warframeJSON[2].name, Mock_value[indexTabMockValue])).toEqual("Loki");
         expect(warframeGetName(Mock_warframeJSON[3].name, Mock_value[indexTabMockValue])).toEqual("Loki Prime");
-        expect(warframeGetName(Mock_warframeJSON[4].name, Mock_value[indexTabMockValue])).toEqual("Excalibur Umbra");
+        expect(warframeGetName(Mock_warframeJSON[4].name, Mock_value[indexTabMockValue])).toEqual('');
         expect(warframeGetName(Mock_warframeJSON[5].name, Mock_value[indexTabMockValue])).toEqual("Excalibur");
 
     });
