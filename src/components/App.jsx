@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import SelectWarframe from "@components/SelectWarframe";
 import TechTree from "@components/TechTree";
+import BarNavigationSup from "@components/BarNavigationSup";
 
 // const Items = require('warframe-items');
 // const items = new Items({category: ['Warframes']});
 
-const items = require('/src/data/AllWarframeData.json');
+const items = require('@data/AllWarframeData.json');
 
 //TODO bug entre une warframe puis equinox, link du tree ne change pas
 
@@ -96,8 +97,7 @@ class App extends Component {
     render() {
         return (
             <React.Fragment>
-                <h1>DropFarme</h1>
-                <p>recherchez une warframe</p>
+                <BarNavigationSup/>
                 <SelectWarframe warframeJSON={items} partlist={this.handlePartList}/>
                 {this.state.nodes && this.state.nodes.length !== 0 &&
                     <TechTree nodes={this.state.nodes} />
