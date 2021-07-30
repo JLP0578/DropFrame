@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow, mount, render} from 'enzyme';
 
-import {capitalize, findByName, warframeGetData, warframeGetName, warframeGet, getDataByName} from '../../components/API/WarframeGetData';
+import { capitalize, warframeGetData, warframeGetName, warframeGet } from '@components/API/WarframeGetData';
 
 const Mock_warframeJSON = [
     {

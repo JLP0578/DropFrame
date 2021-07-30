@@ -1,10 +1,11 @@
-import React, {Component, useState, useLayoutEffect} from 'react';
-import {Tree, simplePathMaker} from "react-tech-tree";
-import {linkPathMaker} from './tech-tree-helper'
-import usePosition from "./usePosition";
-import "./techTree.css";
+import React from 'react';
+import { Tree } from "react-tech-tree";
+import { linkPathMaker } from '@components/tech-tree-helper';
+
+import "@components/techTree.css";
 
 // ========================================
+
 
 // const MOCK_nodes = [
 //     [
@@ -63,6 +64,7 @@ import "./techTree.css";
 //     {from: "base_compo_4", to: "sub_4_compo_4"},
 //
 // ];
+
 const resize = () => {
     const originalWidth = window.innerWidth;
     const originalHeight = window.innerHeight;

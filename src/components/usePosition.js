@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { getNodeDOMPositions, linkPathMaker } from "./tech-tree-helper";
+import { getNodeDOMPositions, linkPathMaker } from "@components/tech-tree-helper";
 
 const usePosition = ({ links = [], pathMaker = linkPathMaker } = {}) => {
     // we must use a reference since we need Node's DOM position

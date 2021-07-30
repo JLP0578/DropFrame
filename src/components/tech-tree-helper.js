@@ -1,5 +1,3 @@
-import { useLayoutEffect, useRef, useState } from "react";
-
 const EPSILON = 4;
 
 export const linkPathMaker = (p0, p1, linkProps) => {

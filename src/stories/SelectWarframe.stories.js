@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SelectWarframe from '../components/SelectWarframe';
+import SelectWarframe from '@components/SelectWarframe';
 
 export default {
   title: 'Molecules/SelectWarframe',

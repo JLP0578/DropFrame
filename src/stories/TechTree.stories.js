@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TechTree from '../components/TechTree';
+import TechTree from '@components/TechTree';
 
 export default {
   title: 'Molecules/TechTree',
