@@ -1,28 +1,33 @@
-import React, {Component} from 'react';
-import {warframeGet} from "./API/WarframeGetData";
+import React, { Component } from 'react';
+import { warframeGet } from "@components/API/WarframeGetData";
+import { SearchBar } from '@components/SearchBar/SearchBar';
 
-// ========================================
+// import { Button } from '@components/Button/Button';
+// import { InputText } from '@components/InputText/InputText';
 
 class SelectWarframe extends Component {
     constructor(props) {
         super(props);
         this.state = {
             warframeJSON: this.props.warframeJSON,
+            searchBar: {
+                value: '',
+            },
             datalist: [],
             partlist: [],
         }
     }
 
-    onInputDataList(evt) {
-        const val = document.getElementById("search");
-        const opts = document.getElementById('WarframeName').childNodes;
+    handleValueDataList() {
+        const nomARechercher = document.getElementById("search");
+        const listDeResultat = document.getElementById('WarframeName').childNodes;
         // const detail = document.getElementById('detail');
-        for (let i = 0; i < opts.length; i++) {
-            const valeurOption = opts[i].value;
-            if (valeurOption === val.value) {
-                // detail.innerText = valeurOption;
-                this.getData(valeurOption)
-                val.blur();
+        for (let i = 0; i < listDeResultat.length; i++) {
+            const valeurDeLaListeDeResultat = listDeResultat[i].value;
+            const estLaMemeValeur = valeurDeLaListeDeResultat === nomARechercher.value;
+            if (estLaMemeValeur) {
+                this.getData(valeurDeLaListeDeResultat)
+                nomARechercher.blur();
                 break;
             }
         }
@@ -36,7 +41,9 @@ class SelectWarframe extends Component {
         this.props.partlist(allDataWarframeSelected);
     }
 
-    onChangeInput(evt) {
+    
+
+    handleChangeSearchValue(evt) {
         const warframesFind = warframeGet(this.state.warframeJSON, evt.target.value, 'findName');
         const listNomTrouver = [];
         for (const [index, value] of warframesFind.entries()) {
@@ -49,46 +56,49 @@ class SelectWarframe extends Component {
         }
         this.setState({
             datalist: listNomTrouver,
+            searchBar: {
+                value: evt.target.value,
+            },
         })
     }
 
-    onClickInput() {
-        const val = document.getElementById("search");
-        const opts = document.getElementById('WarframeName');
-        const detail = document.getElementById('detail');
-        detail.innerText = '';
-        val.value = '';
-        opts.value = '';
+    handleClickResetValue() {
+        document.getElementById("search").value = '';
+        document.getElementById('WarframeName').value = '';
+        document.getElementById('detail').innerText = '';;
     }
 
     render() {
         const dataList = this.state.datalist;
+        const inputTextAttribut = {
+            id: 'search',
+            name: 'search',
+            placeholder: 'Search',
+            value: this.state.searchBar.value,
+            onChange: (evt) => this.handleChangeSearchValue(evt),
+            onInput: () => this.handleValueDataList(),
+        };
+        const buttonAttribut = {
+            disabled: false,
+            id: 'reset',
+            name: 'reset',
+            value: 'X',
+            variante: "remove",
+            onClick: () => this.handleClickResetValue(),
+        };
+        const datalistAttribut = {
+            id: 'WarframeName',
+            value: dataList,
+        };
 
         return (
             <>
-                <input
-                    autoComplete="off"
-                    id={"search"}
-                    type={"text"}
-                    name={"search"}
-                    placeholder={"search"}
-                    onChange={(evt) => this.onChangeInput(evt)}
-                    onInput={(evt) => this.onInputDataList(evt)}
-                    list={"WarframeName"}
+                <SearchBar
+                    inputText={inputTextAttribut}
+                    button={buttonAttribut}
+                    datalist={datalistAttribut}
                 />
-                <input
-                    id={"reset"}
-                    type={"submit"}
-                    name={"reset"}
-                    value={"X"}
-                    onClick={() => this.onClickInput()}
-                />
-                <datalist id={"WarframeName"}>
-                    {dataList}
-                </datalist>
-                <div id={"detail"}>
-
-                </div>
+                <div id="detail"></div>
             </>
         );
     }

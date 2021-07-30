@@ -5,63 +5,61 @@ import styled from 'styled-components';
 import { color } from '@theme/theme';
 
 const StyledButton = styled.button`
-        background-color: #333;
-        color: #fff;
-        border-color: #333;
-        border-radius: 3px;
-        border: 2px solid;
-        
-        line-height: 0px;
-        margin: 0.5em 1em;
-        padding: 0.25em 1em;
+    background-color: #fff;
+    color: #333;
+    border-color: #333;
+    border-radius: 3px;
+    border: 2px solid;
+    
+    line-height: 0px;
+    margin: 0.5em 1em;
+    padding: 1.60em 1em;
 
-        width: auto;
-        height: 35px;
-        
+    width: auto;
+    height: 35px;
+    
+    &:hover {
+        transition: 80ms;
+        border: 2px solid grey;
+        cursor: pointer;
+    }
+    &.default {
+        color: ${color.secondary.alternative};
+        border-color: ${color.primary.base};
+        background-color: ${color.primary.base};
         &:hover {
-            background-color: #000;
-            border-color: #000;
-            border: 2px solid;
-
-            transition: 80ms;
-            cursor: pointer;
+            background-color: ${color.primary.alternative};
+            border-color: ${color.primary.alternative};
         }
-        &.default{
-            background-color: ${color.primary.base};
-            color: ${color.secondary.alternative};
-            border-color: ${color.primary.base};
-            &:hover {
-                background-color: ${color.primary.alternative};
-                border-color: ${color.primary.alternative};
-            }
+    }
+    
+    &.remove {
+        color: ${color.secondary.alternative};
+        border-color: ${color.error.base};
+        background-color: ${color.error.base};
+        &:hover {
+            background-color:  ${color.error.alternative};
+            border-color:  ${color.error.alternative};
         }
-        &.remove{
-            background-color: ${color.error.base};
-            color: ${color.secondary.alternative};
-            border-color: ${color.error.base};
-            &:hover {
-                background-color: ${color.error.alternative};
-                border-color: ${color.error.alternative};
-            }
-        }
-    `;
+    }
+    
+`;
 
 export const Button = ({disabled, id, name, value, onClick, variante, ...props}) => {
-        return (
-            <StyledButton
-                type="button"
-                disabled={disabled}
-                name={name}
-                className={variante}
-                id={id}
-                onClick={onClick}
-                {...props}
-            >
-                {value}
-            </StyledButton>
-        );
-    }
-;
+    return (
+        <StyledButton
+            type="button"
+            disabled={disabled}
+            name={name}
+            id={id}
+            className={variante}
+            onClick={onClick}
+            {...props}
+        >
+            {value}
+        </StyledButton>
+    );
+};
 
 Button.propTypes = {
     disabled: PropTypes.bool,
@@ -76,7 +74,7 @@ Button.defaultProps = {
     disabled: false,
     id: '',
     name: '',
-    value: 'Cliquer',
+    value: 'Valider',
     onClick: undefined,
     variante: '',
 };
