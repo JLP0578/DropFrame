@@ -1,6 +1,30 @@
 {
-    "presets": ["@babel/preset-env", "@babel/preset-react"],
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "targets": {
+                    "browsers": [
+                        ">0.25%",
+                        "not ie 11",
+                        "not op_mini all"
+                    ]
+                }
+            }
+        ],
+        "@babel/preset-react"
+    ],
     "plugins": [
-        "babel-plugin-transform-class-properties"
+        "@babel/plugin-transform-runtime",
+        "babel-plugin-transform-class-properties",
+        ["styled-components", { "ssr": false, "displayName": false, "preprocess": true }],
+        ["module-resolver", {
+            "alias": {
+                "@theme": "./src/theme/",
+                "@utilities": "./src/utilities/",
+                "@dist": "./src/dist/",
+                "@components": "./src/components/"
+            }
+        }]
     ]
 }

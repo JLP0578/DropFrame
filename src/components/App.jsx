@@ -1,17 +1,13 @@
 import React, {Component} from 'react';
-import SelectWarframe from "./SelectWarframe";
-import TechTree from "./TechTree";
+import SelectWarframe from "@components/SelectWarframe";
+import TechTree from "@components/TechTree";
 
-import { warframeGetData, warframeGetName } from './API/WarframeGetData';
-
-const Items = require('warframe-items');
-
+// const Items = require('warframe-items');
 // const items = new Items({category: ['Warframes']});
+
 const items = require('/src/data/AllWarframeData.json');
 
-
 //TODO bug entre une warframe puis equinox, link du tree ne change pas
-//TODO bug entre loki prime et loki, supp prime et confirm loki les img ne change pas
 
 // ========================================
 
@@ -27,7 +23,9 @@ class App extends Component {
 
     componentDidMount(){
         //document.getElementById('detail').innerHTML = '<pre>' + JSON.stringify(items, null, 2) + '</pre>';
-        // GENERATOR FILES JSON
+        
+//TODO GENERATOR FILES JSON
+
         // let tabName = [];
         // items.map((item) => {
         //     tabName.push({

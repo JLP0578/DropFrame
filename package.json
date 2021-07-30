@@ -8,7 +8,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
     "build": "node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --mode production",
-    "test": "jest --watchAll --env=jsdom",
+    "test": "jest --watchAll --env=jsdom --setupFiles ./src/setupTests.js",
     "jestrunner.jestCommand": "npm run test --watchAll --env=jsdom",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "@storybook/addon-actions": "^6.2.9",
@@ -40,13 +41,16 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "@babel/runtime": "^7.14.8",
     "@testing-library/jest-dom": "^5.12.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "enzyme-adapter-react-16": "^1.15.6",
+    "prop-types": "^15.7.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-tech-tree": "^0.8.5",
     "styled-components": "^5.3.0",
-    "warframe-items": "1.1246.118"
+    "warframe-items": "^1.1246.118"
   },
   "jest": {
     "setupFilesAfterEnv": [
