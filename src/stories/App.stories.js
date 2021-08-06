@@ -3,7 +3,7 @@ import React from 'react';
 import App from '@components/App';
 
 export default {
-  title: 'Molecules/App',
+  title: 'Template/App',
   component: App,
   argTypes: {
   },

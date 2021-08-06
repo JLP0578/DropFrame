@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import SelectWarframe from "@components/SelectWarframe";
 import TechTree from "@components/TechTree";
 import BarNavigationSup from "@components/BarNavigationSup";
+import FarmTab from '@components/FarmTab';
 
 // const Items = require('warframe-items');
 // const items = new Items({category: ['Warframes']});
 
 const items = require('@data/AllWarframeData.json');
 
-//TODO bug entre une warframe puis equinox, link du tree ne change pas
+// TODO: bug entre une warframe puis equinox, link du tree ne change pas
 
 // ========================================
 
@@ -19,13 +20,12 @@ class App extends Component {
             nodes: [],
             partlist: {},
         }
-        this.handlePartList = this.handlePartList.bind(this);
     }
 
     componentDidMount(){
         //document.getElementById('detail').innerHTML = '<pre>' + JSON.stringify(items, null, 2) + '</pre>';
         
-//TODO GENERATOR FILES JSON
+// TODO: GENERATOR FILES JSON
 
         // let tabName = [];
         // items.map((item) => {
@@ -94,13 +94,25 @@ class App extends Component {
         });
     }
 
+    itemSelected(e){
+        // console.log('itemSelected',e);
+        const currentLocalStorage = localStorage.getItem('DropFrame');
+        if(currentLocalStorage == null) localStorage.setItem('DropFrame', []);
+        console.log('currentLocalStorage',currentLocalStorage);
+        localStorage.setItem('DropFrame', currentLocalStorage.concat([e]));
+    }
+
     render() {
         return (
             <React.Fragment>
                 <BarNavigationSup/>
-                <SelectWarframe warframeJSON={items} partlist={this.handlePartList}/>
+                <FarmTab/>
+                <SelectWarframe warframeJSON={items} partlist={(e) => this.handlePartList(e)}/>
                 {this.state.nodes && this.state.nodes.length !== 0 &&
-                    <TechTree nodes={this.state.nodes} />
+                    <TechTree 
+                    nodes={this.state.nodes} 
+                    itemSelected={(e) => this.itemSelected(e)}
+                    />
                 }
             </React.Fragment>
         );

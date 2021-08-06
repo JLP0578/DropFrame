@@ -15,12 +15,14 @@ const StyledInputText = styled.input`
 
     width: auto;
     height: 35px;
+
+    transition: all 0.30s ease-in-out;
     
     &:hover {
         transition: 80ms;
         border: 2px solid grey;
         cursor: pointer;
-    }  
+    }
 `;
 
 export const InputText = ({disabled, id, name, value, placeholder, onChange, onInput, variante, ...props}) => {

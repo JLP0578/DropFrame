@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { warframeGet } from "@components/API/WarframeGetData";
 import { SearchBar } from '@components/SearchBar/SearchBar';
 
-// import { Button } from '@components/Button/Button';
-// import { InputText } from '@components/InputText/InputText';
-
 class SelectWarframe extends Component {
     constructor(props) {
         super(props);
@@ -12,6 +9,7 @@ class SelectWarframe extends Component {
             warframeJSON: this.props.warframeJSON,
             searchBar: {
                 value: '',
+                placeholder: 'Search',
             },
             datalist: [],
             partlist: [],
@@ -46,6 +44,7 @@ class SelectWarframe extends Component {
     handleChangeSearchValue(evt) {
         const warframesFind = warframeGet(this.state.warframeJSON, evt.target.value, 'findName');
         const listNomTrouver = [];
+        const premierNomTrouver = warframesFind[0];
         for (const [index, value] of warframesFind.entries()) {
             listNomTrouver.push(
                 <option
@@ -57,6 +56,7 @@ class SelectWarframe extends Component {
         this.setState({
             datalist: listNomTrouver,
             searchBar: {
+                placeholder: premierNomTrouver,
                 value: evt.target.value,
             },
         })
@@ -65,7 +65,13 @@ class SelectWarframe extends Component {
     handleClickResetValue() {
         document.getElementById("search").value = '';
         document.getElementById('WarframeName').value = '';
-        document.getElementById('detail').innerText = '';;
+        document.getElementById('detail').innerText = '';
+        this.setState({
+            searchBar: {
+                placeholder: 'Search',
+                value: '',
+            },
+        })
     }
 
     render() {
@@ -73,7 +79,7 @@ class SelectWarframe extends Component {
         const inputTextAttribut = {
             id: 'search',
             name: 'search',
-            placeholder: 'Search',
+            placeholder: this.state.searchBar.placeholder,
             value: this.state.searchBar.value,
             onChange: (evt) => this.handleChangeSearchValue(evt),
             onInput: () => this.handleValueDataList(),

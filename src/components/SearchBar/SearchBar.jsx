@@ -9,8 +9,9 @@ const StyledSearchBar = styled.div`
         margin-right: 0px;
     }
     button{
-        margin-left: -1px;
+        margin-left: -2px;
     }
+    
 `;
 
 export const SearchBar = ({id, inputText, button, datalist, ...props}) => {
