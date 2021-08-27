@@ -36,6 +36,7 @@ class SelectWarframe extends Component {
         const allDataWarframeSelected = warframeGet(this.state.warframeJSON, name, 'getData')[premierElementRetourne];
         // document.getElementById('detail').innerHTML = '<pre>' + JSON.stringify(allDataWarframeSelected, null, 2) + '</pre>';
     
+        this.props.warframeSelected(name);
         this.props.partlist(allDataWarframeSelected);
     }
 

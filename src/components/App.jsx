@@ -13,12 +13,16 @@ const items = require('@data/AllWarframeData.json');
 
 // ========================================
 
+const NOM_LOCAL_STORAGE = 'DropFrame';
+
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             nodes: [],
             partlist: {},
+            currentWarframeName: "",
+            partSelected: {},
         }
     }
 
@@ -94,12 +98,40 @@ class App extends Component {
         });
     }
 
-    itemSelected(e){
-        // console.log('itemSelected',e);
-        const currentLocalStorage = localStorage.getItem('DropFrame');
-        if(currentLocalStorage == null) localStorage.setItem('DropFrame', []);
-        console.log('currentLocalStorage',currentLocalStorage);
-        localStorage.setItem('DropFrame', currentLocalStorage.concat([e]));
+    handleWarframeSelected(warframeName){
+        this.setState({
+            currentWarframeName: warframeName, 
+        });
+    }
+
+    itemSelected(warframePart){
+        
+        const nameWarframe = this.state.currentWarframeName;
+        this.createLocalStorage();
+        this.addLocalStorage(nameWarframe, warframePart);
+    }
+
+    createLocalStorage(){
+        const currentLocalStorage = localStorage.getItem(NOM_LOCAL_STORAGE);
+        if(currentLocalStorage == null) localStorage.setItem(NOM_LOCAL_STORAGE, []);
+    }
+
+    addLocalStorage(name, part){
+        const currentLocalStorage = localStorage.getItem(NOM_LOCAL_STORAGE);
+        const objItem = this.structureItemLocalStorage(name, part);
+        localStorage.setItem(NOM_LOCAL_STORAGE, currentLocalStorage.concat([JSON.stringify(objItem)]));
+    }
+
+    structureItemLocalStorage(name, part){
+        const structureItem = {
+            id: "",
+            properties : {
+                name: name,
+                part: part.nom,
+                image: part.img,
+            }
+        }
+        return structureItem;
     }
 
     render() {
@@ -107,11 +139,15 @@ class App extends Component {
             <React.Fragment>
                 <BarNavigationSup/>
                 <FarmTab/>
-                <SelectWarframe warframeJSON={items} partlist={(e) => this.handlePartList(e)}/>
+                <SelectWarframe 
+                    warframeJSON={items} 
+                    partlist={(e) => this.handlePartList(e)}
+                    warframeSelected={(e) => this.handleWarframeSelected(e)}
+                />
                 {this.state.nodes && this.state.nodes.length !== 0 &&
                     <TechTree 
-                    nodes={this.state.nodes} 
-                    itemSelected={(e) => this.itemSelected(e)}
+                        nodes={this.state.nodes} 
+                        itemSelected={(e) => this.itemSelected(e)}
                     />
                 }
             </React.Fragment>
