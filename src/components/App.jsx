@@ -13,7 +13,6 @@ const items = require('@data/AllWarframeData.json');
 
 // ========================================
 
-const NOM_LOCAL_STORAGE = 'DropFrame';
 
 class App extends Component {
     constructor(props) {
@@ -22,7 +21,7 @@ class App extends Component {
             nodes: [],
             partlist: {},
             currentWarframeName: "",
-            partSelected: {},
+            currentWarframePart: {},
         }
     }
 
@@ -105,40 +104,19 @@ class App extends Component {
     }
 
     itemSelected(warframePart){
-        
-        const nameWarframe = this.state.currentWarframeName;
-        this.createLocalStorage();
-        this.addLocalStorage(nameWarframe, warframePart);
-    }
-
-    createLocalStorage(){
-        const currentLocalStorage = localStorage.getItem(NOM_LOCAL_STORAGE);
-        if(currentLocalStorage == null) localStorage.setItem(NOM_LOCAL_STORAGE, []);
-    }
-
-    addLocalStorage(name, part){
-        const currentLocalStorage = localStorage.getItem(NOM_LOCAL_STORAGE);
-        const objItem = this.structureItemLocalStorage(name, part);
-        localStorage.setItem(NOM_LOCAL_STORAGE, currentLocalStorage.concat([JSON.stringify(objItem)]));
-    }
-
-    structureItemLocalStorage(name, part){
-        const structureItem = {
-            id: "",
-            properties : {
-                name: name,
-                part: part.nom,
-                image: part.img,
-            }
-        }
-        return structureItem;
+        this.setState({
+            currentWarframePart: warframePart, 
+        });
     }
 
     render() {
         return (
             <React.Fragment>
                 <BarNavigationSup/>
-                <FarmTab/>
+                <FarmTab
+                    currentWarframeName={this.state.currentWarframeName}
+                    currentWarframePart={this.state.currentWarframePart}
+                />
                 <SelectWarframe 
                     warframeJSON={items} 
                     partlist={(e) => this.handlePartList(e)}
