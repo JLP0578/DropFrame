@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from '@components/Button/Button';
+import { CardLocalStorage } from '@components/CardLocalStorage/CardLocalStorage'
 
 const StyledFarmTab = styled.div`
     display: block
@@ -13,26 +14,6 @@ const StyledDiv = styled.div`
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-around;
-
-    .card{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        min-width: 155px;
-
-        background-color: ghostwhite;
-        box-shadow: 0px 0px 8px lightgrey;
-        border-radius: 5px;
-
-        .card_title, .card_action{
-            text-align: center;
-        }
-        .card_content{
-            margin-left: 20px;
-            text-align: left;
-        }
-    }
 `;
 
 const NOM_LOCAL_STORAGE = 'DropFrame';
@@ -127,30 +108,12 @@ class FarmTab extends Component {
                 <StyledDiv>
                     {this.state.currentLocalStorage.length != 0 
                         && this.state.currentLocalStorage.map((item, index) => {
-                            const idWarframe = item.id;
-                            const nomWarframe = item.properties.name;
-                            const partWarframe = item.properties.part;
-                            const imagePart = item.properties.image;
                             return (
-                                <div className="card" key={index}>
-                                    <div className="card_title">
-                                        <img width="146" height="100" src={'./src/data/' + imagePart} alt={partWarframe}/>
-                                        <h3>{nomWarframe}</h3>
-                                        <h4>{partWarframe}</h4>
-                                    </div>
-                                    <div className="card_content">
-                                        <p>drop location</p>
-                                    </div>
-                                    <div className="card_action">
-                                        <Button
-                                            id="archive"
-                                            name="archive"
-                                            value="Archiver"
-                                            variante="remove"
-                                            onClick={(idWarframe) => this.removeOneLocalStorage(idWarframe)}
-                                        />
-                                    </div>
-                                </div>
+                                <CardLocalStorage
+                                    onClick={() => this.removeOneLocalStorage(item.id)}
+                                    key={index}
+                                    item={item}
+                                />
                             );
                         })
 
