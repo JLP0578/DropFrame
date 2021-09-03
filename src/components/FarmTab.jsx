@@ -41,11 +41,23 @@ const NOM_LOCAL_STORAGE = 'DropFrame';
 class FarmTab extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            currentLocalStorage: []
+        };
     }
 
     componentDidMount() {
         const hasLocalStorage = localStorage.getItem(NOM_LOCAL_STORAGE);
         if (hasLocalStorage) this.loadLocalStorage();
+    }
+
+    componentDidUpdate(){
+        const isNameNotEmpty = this.props.currentWarframeName != "";
+        const isPartNotEmpty = Object.keys(this.props.currentWarframePart).length != 0;
+        if(isNameNotEmpty && isPartNotEmpty) {
+            this.addLocalStorage(this.props.currentWarframeName, this.props.currentWarframePart);
+            this.props.resetPropsFarmTab();
+        }
     }
 
     createLocalStorage() {
@@ -56,48 +68,52 @@ class FarmTab extends Component {
     resetLocalStorage() {
         localStorage.setItem(NOM_LOCAL_STORAGE, "");
         this.setState({
-            itemsLocalStorage: [],
+            currentLocalStorage: [],
         });
     }
 
     removeOneLocalStorage(){
-
+    }
+        
+    saveLocalStorage() {
+        localStorage.setItem(NOM_LOCAL_STORAGE, JSON.stringify(this.state.currentLocalStorage));
     }
 
     loadLocalStorage() {
         let currentLocalStorage = localStorage.getItem(NOM_LOCAL_STORAGE);
-        currentLocalStorage = JSON.parse('[' + currentLocalStorage + ']');
-        return currentLocalStorage;
+        currentLocalStorage = JSON.parse(currentLocalStorage);
+
+        this.setState({
+            currentLocalStorage: currentLocalStorage,
+        });
     }
 
     addLocalStorage(name, part) {
-        const hasName = name != "";
-        const hasPart = Object.keys(part).length != 0;
-        if (hasName && hasPart) {
-            const currentLocalStorage = localStorage.getItem(NOM_LOCAL_STORAGE);
-            let objItem = this.structureItemLocalStorage(name, part);
-            objItem = JSON.stringify(objItem);
-            if (currentLocalStorage.length != 0) {
-                objItem = ',' + objItem;
-            }
-            localStorage.setItem(NOM_LOCAL_STORAGE, currentLocalStorage + objItem);
-        }
+        // const currentLocalStorage = localStorage.getItem(NOM_LOCAL_STORAGE);
+        let objItem = this.structureItemLocalStorage(name, part);
+
+        let local = [...this.state.currentLocalStorage];
+        local.push(objItem)
+
+        this.setState({
+            currentLocalStorage: local,
+        },() => {
+            this.saveLocalStorage();
+        });
     }
 
     structureItemLocalStorage(name, part) {
         return {
-            id: "",
-            properties: {
-                name: name,
-                part: part.nom,
-                image: part.img
+            "id": "",
+            "properties": {
+                "name": name,
+                "part": part.nom,
+                "image": part.img
             }
         }
     }
 
     render() {
-        this.addLocalStorage(this.props.currentWarframeName, this.props.currentWarframePart);
-        const itemsLocalStorage = this.loadLocalStorage();
         return (
             <StyledFarmTab id={this.props.id}>
                 <h2>FarmTab</h2>
@@ -109,9 +125,8 @@ class FarmTab extends Component {
                     onClick={() => this.resetLocalStorage()}
                 />
                 <StyledDiv>
-                    {itemsLocalStorage
-                        && itemsLocalStorage.length != 0
-                        && itemsLocalStorage.map((item, index) => {
+                    {this.state.currentLocalStorage.length != 0 
+                        && this.state.currentLocalStorage.map((item, index) => {
                             const idWarframe = item.id;
                             const nomWarframe = item.properties.name;
                             const partWarframe = item.properties.part;
