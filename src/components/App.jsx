@@ -10,6 +10,7 @@ import FarmTab from '@components/FarmTab';
 const items = require('@data/AllWarframeData.json');
 
 // TODO: bug entre une warframe puis equinox, link du tree ne change pas
+// TODO: handlePartList retirer les drops (inutilité)
 
 // ========================================
 
@@ -54,6 +55,7 @@ class App extends Component {
     }
 
     handlePartList(objWarframeSelected) {
+        // console.log('objWarframeSelected',JSON.stringify(objWarframeSelected))
         let partsWarframe = objWarframeSelected.components.map((part) => part);
 
         let blueprint = [partsWarframe.find((part) => part.name === 'Blueprint')]
@@ -92,37 +94,49 @@ class App extends Component {
                 ]
             ];
         }
+        // console.log('node',JSON.stringify(nodes))
+
         this.setState({
             nodes: nodes,
         });
     }
 
-    handleWarframeSelected(warframeName){
+    handleWarframeSelected(warframeName) {
         this.setState({
             currentWarframeName: warframeName, 
         });
     }
 
-    itemSelected(warframePart){
+    itemSelected(warframePart) {
         this.setState({
             currentWarframePart: warframePart, 
         });
     }
 
+    resetPropsFarmTab() {
+        this.setState({
+            currentWarframePart: {}
+        })
+    }
+
     render() {
+        const isNode = this.state.nodes;
+        const isNodeNotEmpty = this.state.nodes.length !== 0;
+
         return (
             <React.Fragment>
                 <BarNavigationSup/>
                 <FarmTab
                     currentWarframeName={this.state.currentWarframeName}
                     currentWarframePart={this.state.currentWarframePart}
+                    resetPropsFarmTab={() => this.resetPropsFarmTab()}
                 />
                 <SelectWarframe 
                     warframeJSON={items} 
                     partlist={(e) => this.handlePartList(e)}
                     warframeSelected={(e) => this.handleWarframeSelected(e)}
                 />
-                {this.state.nodes && this.state.nodes.length !== 0 &&
+                {isNode && isNodeNotEmpty &&
                     <TechTree 
                         nodes={this.state.nodes} 
                         itemSelected={(e) => this.itemSelected(e)}

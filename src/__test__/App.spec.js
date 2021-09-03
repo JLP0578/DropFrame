@@ -11,4 +11,8 @@ describe('App', () => {
         expect(wrapper).toMatchSnapshot()
     });
 
+    it('should generate node treeTech', () => {
+        // handlePartList
+    });
+
 });
